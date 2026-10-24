@@ -1,0 +1,103 @@
+��&cls
+@echo off
+mode con: cols=80 lines=10
+title HIJH - By Creator Co. Studios
+color 06
+chcp 65001 >nul
+setlocal enabledelayedexpansion
+echo What do you want the saving file to be named? (It will be a .txt file)
+set /p filename=">>"
+echo Confirmed, The Info Will Be Saved To "%filename%.txt".
+timeout 2 >nul
+call :load
+goto take
+
+:take
+:: Change to the directory where the script resides
+cd /d "%~dp0"
+
+set output=%filename%.txt
+> "%output%" echo Output 1 = no_password
+>> "%output%" echo Wi-Fi Profiles and Keys
+>> "%output%" echo.
+
+for /f "skip=9 tokens=2* delims=:" %%i in ('netsh wlan show profiles') do (
+    set "profile=%%i"
+    set "profile=!profile:~1!"
+    if not "!profile!"=="" (
+        (
+            echo SSID: !profile!
+            netsh wlan show profile name="!profile!" key=clear | findstr "Key Content"
+            echo.
+        ) >> "%output%"
+    )
+)
+
+cls
+echo Done! Output saved to "%output%".
+echo.
+
+:ASKOPEN
+set /p choice=Do you want to open the file now? (Y/N): 
+if /i "%choice%"=="Y" (
+    start "" "%output%"
+    exit
+) else if /i "%choice%"=="N" (
+    echo Ok, exiting.
+) else (
+    echo Please enter Y or N.
+    goto ASKOPEN
+)
+
+endlocal
+exit
+
+:load
+cls
+echo.
+echo           		      Starting Stuff...
+echo 		    ╔═══════════════════════════════════╗
+echo 		    ║█████                              ║
+echo 		    ╚═══════════════════════════════════╝
+ timeout 4 >nul
+cls
+echo.
+echo         		    Entering Commands...
+echo 		    ╔═══════════════════════════════════╗
+echo 		    ║██████████                         ║
+echo 		    ╚═══════════════════════════════════╝
+ timeout 4 >nul
+cls
+echo.
+echo           		      Accessing Info...
+echo 		    ╔═══════════════════════════════════╗
+echo 		    ║███████████████                    ║
+echo 		    ╚═══════════════════════════════════╝
+ timeout 4 >nul
+cls
+echo.
+echo          		      Collecting Info...
+echo 		    ╔═══════════════════════════════════╗
+echo 		    ║████████████████████               ║
+echo 		    ╚═══════════════════════════════════╝
+ timeout 4 >nul
+cls
+echo.
+echo            	               Copying Info...
+echo 		    ╔═══════════════════════════════════╗
+echo 		    ║█████████████████████████          ║
+echo 		    ╚═══════════════════════════════════╝
+ timeout 4 >nul
+cls
+echo.
+echo           		      Doing Something...
+echo 		    ╔═══════════════════════════════════╗
+echo 		    ║██████████████████████████████     ║
+echo 		    ╚═══════════════════════════════════╝
+ timeout 4 >nul
+cls
+echo.
+echo             		         Complete...
+echo                     ╔═══════════════════════════════════╗
+echo 		    ║███████████████████████████████████║
+echo 		    ╚═══════════════════════════════════╝
